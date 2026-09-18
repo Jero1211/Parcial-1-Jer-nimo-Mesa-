@@ -1,5 +1,12 @@
 # 🌿 Proyecto Flask - Naturaleza & Experiencia Web
 
+## 📂 Evidencias del Parcial - Jerónimo Mesa
+- **Enlace del Fork con modificación**: [GitHub Fork Branch](https://github.com/Jero1211/Parcial-1-Jer-nimo-Mesa-)
+- **Enlace del Pull Request al repo original**: [Pull Request (PR)](https://github.com/g3in-unilasallista/mi_proyecto_python/pulls)
+- **Enlace público de la app en Render**: [Aplicación en vivo](https://parcial-1-jer-nimo-mesa.onrender.com)
+
+---
+
 ![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
 ![Flask](https://img.shields.io/badge/Flask-3.0.0-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![Render](https://img.shields.io/badge/Render-Deployed-46E3B7?style=for-the-badge&logo=render&logoColor=white)
