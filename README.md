@@ -1,201 +1,288 @@
-# 🌿 Parcial 1: Caso Práctico — Selección de Stack, Arquitectura de Software y Despliegue
-### Ingeniería de Software II — Corporación Universitaria Lasallista
+# 🌿 Proyecto Flask - Naturaleza & Experiencia Web
 
-![Python](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)
-![Flask](https://img.shields.io/badge/Flask-3.1.3-000000?style=for-the-badge&logo=flask&logoColor=white)
+![Python](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-3.0.0-000000?style=for-the-badge&logo=flask&logoColor=white)
 ![Render](https://img.shields.io/badge/Render-Deployed-46E3B7?style=for-the-badge&logo=render&logoColor=white)
-![Git](https://img.shields.io/badge/Git-Branch_Workflow-F05032?style=for-the-badge&logo=git&logoColor=white)
+![Licencia](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
+
+Una aplicación web moderna y elegante construida con **Python** y **Flask**, diseñada con un estilo orgánico inspirado en los colores de la naturaleza, efectos de cristal esmerilado (*glassmorphism*), tipografía sobria y gráficos vectoriales **SVG**.
 
 ---
 
-## 👨‍💻 Información del Estudiante
-- **Nombre:** Jerónimo Mesa
-- **Curso:** Ingeniería de Software II
-- **Institución:** Corporación Universitaria Lasallista
-- **Repositorio Base Original:** [https://github.com/g3in-unilasallista/mi_proyecto_python.git](https://github.com/g3in-unilasallista/mi_proyecto_python.git)
-- **Repositorio Fork (Personal):** [https://github.com/Jero1211/Parcial-1-Jer-nimo-Mesa-](https://github.com/Jero1211/Parcial-1-Jer-nimo-Mesa-)
-- **Rama de Trabajo:** `feature/quiz-arquitectura-jeronimo`
+## 🛠️ Tecnologías Utilizadas
+
+- **Backend**: Python 3, Flask, Gunicorn
+- **Frontend**: HTML5, Vanilla CSS3 (Variables CSS, Flexbox, CSS Grid, Glassmorphism, Micro-animaciones)
+- **Recursos**: SVG Vectorial puro, Google Fonts (*Playfair Display* & *Plus Jakarta Sans*)
+- **Despliegue**: Render, Git & GitHub
 
 ---
 
-## 📋 Respuestas de la Evaluación Práctica
+## 🚀 Aprende a Replicar este Proyecto
 
----
+Guía paso a paso para construir la aplicación en tu propia máquina.
 
-### 1. Selección del Stack y Arquitectura de Software
+### Paso 1: Instalar Python y Git
+Asegúrate de tener Python 3.10+ y Git instalados en tu sistema operativo.
 
-| Elemento | Respuesta del estudiante |
-| :--- | :--- |
-| **Lenguaje de programación** | Python (v3.13) |
-| **Framework backend** | Flask (v3.1.3) |
-| **Tecnologías frontend** | HTML5 semántico, CSS3 moderno (Variables CSS, Glassmorphism, animaciones fluidas) y JavaScript (ES6+ nativo) |
-| **Base de datos o almacenamiento** | Estructuras de datos en memoria (In-Memory / JSON en cliente y backend) |
-| **Arquitectura o patrón seleccionado** | Arquitectura Monolítica basada en el patrón MVT / MVC (Model-View-Template) |
-| **Servicio de despliegue** | Render (PaaS - Web Service con servidor WSGI Gunicorn) |
+```bash
+# Verificar la versión de Python
+python --version
 
-#### 📝 Justificación de la selección de la arquitectura y del stack tecnológico:
-> *"Se seleccionó Python junto con el micro-framework Flask debido a su minimalismo, bajo acoplamiento y rapidez para implementar aplicaciones web dinámicas con bajo consumo de memoria. La arquitectura monolítica basada en MVC/MVT resulta idónea para este alcance, pues centraliza en un único paquete de despliegue la lógica del controlador (`app.py`) y la interfaz visual (`templates/index.html`), minimizando la sobrecarga operativa y los costos de infraestructura.*
-> 
-> *En la capa de presentación (Frontend), el uso de HTML5, CSS3 moderno y JavaScript vanilla permite ofrecer una interfaz reactiva, moderna y con efectos Glassmorphic para el quiz interactivo sin necesidad de dependencias externas pesadas como React o Angular. Finalmente, se seleccionó Render como plataforma PaaS en conjunto con el servidor WSGI Gunicorn debido a su integración continua nativa con GitHub, soporte directo para Python y su capacidad de gestionar tráfico web en entornos de producción con procesos trabajadores (workers) concurrentes."*
-
----
-
-### 2. Análisis de la Estructura del Proyecto
-
-#### 📂 Estructura de archivos y directorios:
-```text
-Parcial-1-Jer-nimo-Mesa-/
-├── app.py                 # Controlador principal y enrutamiento backend con Flask
-├── requirements.txt       # Declaración de dependencias (Flask, gunicorn)
-├── Procfile               # Configuración de comando de inicio para Render (web: gunicorn app:app)
-├── LICENSE                # Licencia MIT del proyecto
-├── README.md              # Documentación técnica y respuestas del parcial
-├── templates/
-│   └── index.html         # Vista (Jinja2/HTML5) con diseño Glassmorphic, tarjeta de autor y Quiz
-└── venv/                  # Entorno virtual de ejecución local de Python
+# Verificar la versión de Git
+git --version
 ```
 
-#### 🏛️ Arquitectura identificada & Justificación:
-> *"Se identifica una **Arquitectura Monolítica Liviana** estructurada bajo el patrón **MVT/MVC (Modelo-Vista-Template)** nativo de Flask:*
-> - *`app.py` asume la responsabilidad de **Controlador / Enrutador**, recibiendo las peticiones HTTP y despachando las respuestas correspondientes.*
-> - *`templates/index.html` asume el rol de **Vista**, encapsulando la presentación, maquetación, estilos visuales y la lógica de interacción del cliente.*
-> - *El estado del quiz y la configuración operan como un **Modelo en memoria**, desacoplado de bases de datos pesadas.*
-> 
-> *Esta arquitectura es óptima para aplicaciones de evaluación y aprendizaje rápido, ya que garantiza un despliegue directo, alta velocidad de renderizado y facilidad de mantenimiento sin incurrir en la latencia de red ni en la complejidad que implicarían servicios distribuidos."*
-
 ---
 
-### 3. Implementación del Quiz Interactivo
+### Paso 2: Crear la Estructura de Carpetas
+Crea la carpeta de tu proyecto y entra en ella:
 
-El módulo interactivo fue desarrollado dentro de `templates/index.html` bajo una estética armónica con la naturaleza (Glassmorphism, tonos verdes `#52b788`, dorados `#e9c46a` y modo oscuro).
-
-#### ✨ Características funcionales incluidas:
-1. **Pregunta técnica principal formulada:**
-   > *¿Cuál es la principal característica y objetivo de la Arquitectura Hexagonal (Puertos y Adaptadores)?*
-2. **Opciones de respuesta (4 opciones):**
-   - A) Acoplar directamente la lógica de negocio al motor de base de datos para optimizar la velocidad de consulta.
-   - **B) Aislar el núcleo de la lógica de negocio (dominio) del exterior mediante puertos (interfaces) y adaptadores, permitiendo cambiar bases de datos o frameworks sin alterar el dominio. [CORRECTA]**
-   - C) Dividir obligatoriamente la aplicación en exactamente seis capas físicas distribuidas en diferentes servidores.
-   - D) Evitar el uso de interfaces de programación de aplicaciones (APIs) y utilizar únicamente archivos de texto plano.
-3. **Identificación visual:** Resaltado de la tarjeta seleccionada mediante borde dorado y sombreado brillante.
-4. **Retroalimentación inmediata (Feedback):** Panel dinámico que indica si la opción fue correcta (verde) o incorrecta (rojo/naranja) con su respectiva argumentación técnica y pedagógica.
-5. **Progreso y Puntuación:** Contador dinámico de preguntas y pantalla final con conteo de aciertos y mensaje de desempeño.
-
----
-
-### 4. Control de Versiones y Rama de Trabajo
-
-Se implementó el flujo de trabajo recomendado con ramas en Git:
-- **Rama creada:** `feature/quiz-arquitectura-jeronimo`
-- **Comandos ejecutados:**
-  ```powershell
-  # Crear y cambiar a la rama de trabajo
-  git checkout -b feature/quiz-arquitectura-jeronimo
-
-  # Preparar y confirmar los cambios
-  git add templates/index.html README.md
-  git commit -m "feat: seccion creativa de Jeronimo Mesa y quiz interactivo sobre arquitecturas de software"
-
-  # Publicar la rama en el repositorio remoto
-  git push -u origin feature/quiz-arquitectura-jeronimo
-  ```
-
----
-
-### 5. Creación del Pull Request
-
-- **Repositorio Destino:** `https://github.com/g3in-unilasallista/mi_proyecto_python.git` (`main`)
-- **Repositorio Origen:** `https://github.com/Jero1211/Parcial-1-Jer-nimo-Mesa-.git` (`feature/quiz-arquitectura-jeronimo`)
-- **Enlace directo para generar el Pull Request:**  
-  👉 [Crear Pull Request en GitHub](https://github.com/g3in-unilasallista/mi_proyecto_python/compare/main...Jero1211:Parcial-1-Jer-nimo-Mesa-:feature/quiz-arquitectura-jeronimo)
-
-#### 📝 Párrafo Creativo Obligatorio para la Descripción del Pull Request:
-*(Condición cumplida: Un único párrafo, redactado creativamente, incluyendo el nombre del estudiante y la frase "Modificación creativa del HTML")*
-
-> *"Como parte del fortalecimiento de nuestras competencias en Ingeniería de Software II, el estudiante **Jerónimo Mesa** presenta este aporte mediante una **modificación creativa del HTML** que transforma la experiencia visual existente, integrando una tarjeta de identidad estudiantil con estética Glassmorphic e incorporando un módulo interactivo de evaluación diagnóstica sobre conceptos de arquitectura hexagonal, stacks tecnológicos, monolitos y servidores WSGI, con retroalimentación instantánea y diseño orgánico responsivo para enriquecer el aprendizaje en la nube."*
-
----
-
-### 6. Despliegue en la Nube (Render)
-
-#### Pasos para la configuración en Render:
-1. Iniciar sesión en [render.com](https://render.com) utilizando la cuenta de GitHub vinculada.
-2. Hacer clic en **New +** y seleccionar **Web Service**.
-3. Conectar el repositorio: `Jero1211/Parcial-1-Jer-nimo-Mesa-`.
-4. Especificar los parámetros de despliegue:
-   - **Name:** `parcial1-jeronimo-mesa`
-   - **Branch:** `feature/quiz-arquitectura-jeronimo` (o `main`)
-   - **Runtime:** `Python 3`
-   - **Build Command:** `pip install -r requirements.txt`
-   - **Start Command:** `gunicorn app:app`
-   - **Instance Type:** `Free`
-5. Presionar **Create Web Service** y esperar la finalización del despliegue.
-
----
-
-### 7. Evidencias Obligatorias
-
-| # | Evidencia | Enlace / Estado |
-| :-: | :--- | :--- |
-| **1** | **Enlace del Fork con modificación** | [GitHub Fork Branch](https://github.com/Jero1211/Parcial-1-Jer-nimo-Mesa-/tree/feature/quiz-arquitectura-jeronimo) |
-| **2** | **Enlace del Pull Request al repo original** | *(Pegar el enlace generado tras crear el PR)* |
-| **3** | **Enlace público de la app en Render** | *(Pegar la URL generada por Render, ej: `https://parcial1-jeronimo-mesa.onrender.com`)* |
-| **4** | **Evidencia de ejecución local con .venv** | Ejecución activa en `http://127.0.0.1:5000` con entorno `.venv` y Python 3.13 |
-| **5** | **Evidencia del despliegue en Render** | Dashboard con estado `Live` en Render |
-
----
-
-### 8. Pipeline del Trabajo Realizado
-
-```mermaid
-flowchart LR
-    A[1. Fork del Repo] --> B[2. Clone Local]
-    B --> C[3. Ejecución Local .venv]
-    C --> D[4. Creación de Rama]
-    D --> E[5. Modificación HTML]
-    E --> F[6. Implementación Quiz]
-    F --> G[7. Git Commit]
-    G --> H[8. Git Push]
-    H --> I[9. Pull Request]
-    I --> J[10. Despliegue Render]
+```bash
+mkdir mi_proyecto_python
+cd mi_proyecto_python
 ```
 
-#### Descripción de las 10 etapas mínimas:
-1. **Fork:** Bifurcación del repositorio base `g3in-unilasallista/mi_proyecto_python` hacia la cuenta personal `Jero1211`.
-2. **Clone:** Clonación local del repositorio hacia el entorno de trabajo en la máquina física.
-3. **Ejecución local:** Inicialización del entorno virtual `.venv`, instalación de dependencias y ejecución de prueba en `127.0.0.1:5000`.
-4. **Rama:** Creación de una rama aislada de desarrollo (`feature/quiz-arquitectura-jeronimo`) siguiendo GitFlow.
-5. **Modificación HTML:** Incorporación de la tarjeta creativa de autor y personalización del diseño visual.
-6. **Quiz:** Creación del componente evaluativo sobre conceptos de arquitectura de software y stack tecnológico.
-7. **Commit:** Registro estructurado de los cambios en el historial de versiones local.
-8. **Push:** Envío de los commits y publicación de la rama en GitHub remoto.
-9. **Pull Request:** Solicitud de integración dirigida hacia el repositorio central del docente con descripción creativa.
-10. **Render:** Automatización del build y publicación en vivo mediante Web Service y servidor WSGI Gunicorn.
+---
+
+### Paso 3: Crear y Activar el Entorno Virtual (`.venv`)
+El entorno virtual aísla las librerías de tu proyecto para no afectar tu computadora.
+
+```bash
+# Crear entorno virtual
+python -m venv .venv
+
+# Activar en Windows (PowerShell)
+.\.venv\Scripts\Activate.ps1
+
+# Activar en Mac/Linux
+source .venv/bin/activate
+```
 
 ---
 
-### 9. Reflexión Arquitectónica
+### Paso 4: Crear `requirements.txt` e Instalar Dependencias
+Guarda tus dependencias en `requirements.txt` (incluyendo `gunicorn` para el despliegue):
 
-> *"El stack tecnológico y la arquitectura seleccionados responden de forma directa y eficiente a la historia de usuario del proyecto. La combinación de Python y Flask proporciona una base concisa que no abruma al desarrollador con configuraciones complejas, permitiendo centrar los esfuerzos en la comprensión de los estilos arquitectónicos y en la calidad de la experiencia del usuario.*
-> 
-> *Al mantener una arquitectura monolítica MVT, el sistema minimiza los puntos de falla y simplifica el pipeline de despliegue en Render mediante Gunicorn. A su vez, la separación clara entre la lógica del controlador en el backend y la interactividad reactiva en el frontend (mediante CSS y JavaScript modular) valida que la aplicación de software es flexible, fácil de extender y altamente mantenible, cumpliendo plenamente con los objetivos pedagógicos y técnicos de la asignatura de Ingeniería de Software II."*
+```bash
+# Escribir las dependencias
+echo Flask>=3.0.0 > requirements.txt
+echo gunicorn>=21.2.0 >> requirements.txt
 
----
-
-## 💻 Guía de Ejecución Local Rápida
-
-```powershell
-# 1. Clonar el repositorio (si no se ha hecho)
-git clone https://github.com/Jero1211/Parcial-1-Jer-nimo-Mesa-.git
-
-# 2. Crear y activar entorno virtual
-python -m venv venv
-.\venv\Scripts\Activate.ps1
-
-# 3. Instalar dependencias
+# Instalar dependencias
 pip install -r requirements.txt
+```
 
-# 4. Iniciar servidor Flask
+---
+
+### Paso 5: Crear el Servidor Flask (`app.py`)
+Crea el archivo `app.py` que controlará las rutas de tu servidor:
+
+```python
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+if __name__ == '__main__':
+    app.run(debug=True)
+```
+
+---
+
+### Paso 6: Crear la Plantilla HTML con Tema de Naturaleza
+Crea una carpeta llamada `templates` y dentro crea el archivo `index.html`:
+
+```bash
+mkdir templates
+```
+
+Crea `templates/index.html` con la interfaz centrada, tipografía y gráficos SVG integrados:
+
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido a la Naturaleza | Flask App</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #0b2b1a 0%, #1b4332 40%, #2d6a4f 100%);
+            --card-bg: rgba(255, 255, 255, 0.08);
+            --card-border: rgba(255, 255, 255, 0.15);
+            --primary-light: #d8f3dc;
+            --accent-sage: #95d5b2;
+            --accent-green: #52b788;
+            --text-main: #f8f9fa;
+            --text-sub: #b7e4c7;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-gradient);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-main);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            border: 1px solid var(--card-border);
+            border-radius: 28px;
+            padding: 60px 40px;
+            text-align: center;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+        }
+
+        h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 30%, var(--accent-sage) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 1.25rem;
+            color: var(--text-sub);
+            margin-bottom: 40px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 28px 20px;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--accent-green);
+        }
+
+        .card-icon {
+            width: 44px;
+            height: 44px;
+            margin-bottom: 16px;
+            fill: var(--accent-green);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- SVG Principal -->
+        <svg style="width:64px; height:64px; fill:#95d5b2; margin-bottom:20px;" viewBox="0 0 24 24">
+            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,4A8,8 0 0,1 20,12C20,14.4 18.9,16.5 17.2,18C15.8,16.6 13.9,15.6 12,15.6C10.1,15.6 8.2,16.6 6.8,18C5.1,16.5 4,14.4 4,12A8,8 0 0,1 12,4Z"/>
+        </svg>
+
+        <h1>¡Bienvenido a la Experiencia Flask!</h1>
+        <p class="subtitle">Tu aplicación en Python está lista y conectada en un entorno de naturaleza.</p>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <svg class="card-icon" viewBox="0 0 24 24"><path d="M17,8C8,10 59,16.17 3.82,21.34L5.23,22.75C11.4,17.58 14,9 17,8M12.43,15.58C12.12,14.6 11.5,13.62 10.5,12.75C8.16,10.68 4.79,10.29 2,11C2.5,13.88 3.5,17 6.5,18.88C8.13,19.9 9.89,20 11.38,19.62L12.43,15.58M17,3C12,3 8.44,6.25 7.08,9.77C9.37,9.75 11.83,10.5 13.75,12.2C15.67,13.9 16.5,16.32 16.29,18.61C19.68,16.94 22,13.2 22,8.5C22,5.4 19.5,3 17,3Z"/></svg>
+                <h3>Diseño Orgánico</h3>
+                <p>Paletas inspiradas en la naturaleza.</p>
+            </div>
+            <div class="feature-card">
+                <svg class="card-icon" viewBox="0 0 24 24"><path d="M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z"/></svg>
+                <h3>Estructura Firme</h3>
+                <p>Potenciado por Python y Flask.</p>
+            </div>
+        </div>
+        <p align="center" style="margin-top: 30px;">Creado por Feibert Alirio Guzmán Pérez</p>
+    </div>
+
+</body>
+</html>
+```
+
+---
+
+### Paso 7: Ejecutar el Servidor Web Localmente
+Corre tu servidor con Python:
+
+```bash
 python app.py
 ```
-Acceder a la aplicación desde el navegador en: **`http://127.0.0.1:5000`**
+
+Abre tu navegador en:  
+`http://127.0.0.1:5000/`
+
+---
+
+## 🌐 Despliegue en la Nube (Render)
+
+### ¿Qué es Gunicorn y el archivo `Procfile`?
+
+1. **¿Qué es Gunicorn?**  
+   El servidor integrado de Flask (`app.run()`) es solo para pruebas locales. **Gunicorn** es un servidor WSGI de grado de producción diseñado para procesar múltiples peticiones de forma rápida, segura y estable cuando tu aplicación está en producción en internet.
+
+2. **¿Qué es el archivo `Procfile`?**  
+   Es un archivo de texto simple sin extensión que indica a plataformas en la nube como Render o Heroku qué comando ejecutar para iniciar la aplicación web. Contiene:
+   ```text
+   web: gunicorn app:app
+   ```
+   *(El primer `app` es el archivo `app.py` y el segundo `app` es la variable de la aplicación `app = Flask(__name__)`).*
+
+---
+
+### Pasos para Desplegar en Render con GitHub
+
+1. **Crear el archivo `Procfile` en la raíz del proyecto:**
+   ```bash
+   echo web: gunicorn app:app > Procfile
+   ```
+
+2. **Subir tu proyecto a GitHub:**
+   ```bash
+   git init
+   git add .
+   git commit -m "Primer commit: Proyecto Flask Naturaleza"
+   git branch -M main
+   git remote add origin https://github.com/TU_USUARIO/TU_REPOSITTORIO.git
+   git push -u origin main
+   ```
+
+3. **Configurar en Render:**
+   - Entra a [Render.com](https://render.com) e inicia sesión.
+   - Haz clic en **`+ New`** -> **`Web Service`**.
+   - Conecta tu cuenta de **GitHub** y selecciona tu repositorio.
+   - Llena la configuración con estos valores:
+     - **Name**: `mi-proyecto-flask`
+     - **Runtime**: `Python 3`
+     - **Build Command**: `pip install -r requirements.txt`
+     - **Start Command**: `gunicorn app:app`
+   - Haz clic en **Create Web Service**. ¡Listo! Render te dará un enlace público HTTPS para acceder a tu sitio web desde cualquier dispositivo.
+
+---
+
+### 👤 Autor
+**Feibert Alirio Guzmán Pérez**
