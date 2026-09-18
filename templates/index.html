@@ -4,38 +4,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plataforma de Arquitectura de Software & Quiz | Flask App</title>
+    <title>Evaluación Práctica: Arquitectura de Software | Flask App</title>
     
-    <!-- Google Fonts: Outfit (Titulares de impacto) + Inter (Lectura técnica impecable) + Fira Code (Badges) -->
+    <!-- Google Fonts: Inter para un look moderno, limpio y profesional de ingeniería -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
 
     <style>
         :root {
-            /* Paleta Futurista / Midnight Cyber */
-            --bg-primary: #070913;
-            --bg-surface: rgba(15, 23, 42, 0.72);
-            --bg-card: rgba(30, 41, 59, 0.55);
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --border-glow: rgba(99, 102, 241, 0.35);
+            /* Paleta Azul Oscuro / Slate Tech Profesional */
+            --bg-page: #0b1120;
+            --bg-surface: #111827;
+            --bg-card: #1e293b;
+            --bg-card-hover: #273549;
+            --border-color: #334155;
+            --border-focus: #3b82f6;
             
-            /* Acentos Neón Tecnológicos */
-            --primary-indigo: #6366f1;
-            --primary-violet: #8b5cf6;
-            --accent-cyan: #06b6d4;
-            --accent-emerald: #10b981;
-            --accent-amber: #f59e0b;
-            --accent-rose: #f43f5e;
+            /* Acentos Azul Corporativo / Ingeniería */
+            --primary-blue: #2563eb;
+            --primary-blue-hover: #1d4ed8;
+            --primary-blue-light: #60a5fa;
+            --sky-blue: #0284c7;
+            --sky-light: #38bdf8;
             
-            /* Texto */
-            --text-heading: #f8fafc;
-            --text-body: #cbd5e1;
-            --text-muted: #94a3b8;
+            /* Estados */
+            --success-color: #10b981;
+            --success-bg: rgba(16, 185, 129, 0.12);
+            --success-border: #059669;
+            --error-color: #ef4444;
+            --error-bg: rgba(239, 68, 68, 0.12);
+            --error-border: #dc2626;
             
-            /* Sombras y Luces */
-            --glow-indigo: 0 0 25px rgba(99, 102, 241, 0.35);
-            --glow-cyan: 0 0 25px rgba(6, 182, 212, 0.35);
+            /* Tipografía */
+            --text-main: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
         }
 
         * {
@@ -45,774 +49,569 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-primary);
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(99, 102, 241, 0.15) 0%, transparent 40%),
-                radial-gradient(circle at 90% 15%, rgba(139, 92, 246, 0.18) 0%, transparent 45%),
-                radial-gradient(circle at 50% 60%, rgba(6, 182, 212, 0.12) 0%, transparent 50%),
-                radial-gradient(circle at 80% 90%, rgba(244, 63, 94, 0.1) 0%, transparent 40%);
-            background-attachment: fixed;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-page);
             min-height: 100vh;
+            color: var(--text-main);
             display: flex;
             justify-content: center;
             align-items: center;
-            color: var(--text-body);
-            overflow-x: hidden;
             padding: 40px 20px;
-        }
-
-        /* Partículas / Mallas de Luz de Fondo */
-        .ambient-mesh {
-            position: fixed;
-            width: 550px;
-            height: 550px;
-            border-radius: 50%;
-            filter: blur(120px);
-            z-index: 0;
-            pointer-events: none;
-            opacity: 0.35;
-        }
-
-        .ambient-1 {
-            top: -100px;
-            left: -100px;
-            background: linear-gradient(135deg, var(--primary-indigo), var(--accent-cyan));
-            animation: floatSlow 14s infinite ease-in-out alternate;
-        }
-
-        .ambient-2 {
-            bottom: -150px;
-            right: -100px;
-            background: linear-gradient(135deg, var(--primary-violet), var(--accent-rose));
-            animation: floatSlow 18s infinite ease-in-out alternate-reverse;
-        }
-
-        @keyframes floatSlow {
-            0% { transform: translate(0, 0) scale(1); }
-            100% { transform: translate(40px, 30px) scale(1.1); }
-        }
-
-        /* Contenedor Principal Glassmorphism Ultra Premium */
-        .container {
-            position: relative;
-            z-index: 1;
-            max-width: 980px;
-            width: 100%;
-            background: var(--bg-surface);
-            backdrop-filter: blur(28px);
-            -webkit-backdrop-filter: blur(28px);
-            border: 1px solid var(--border-subtle);
-            border-radius: 32px;
-            padding: 55px 45px;
-            box-shadow: 
-                0 25px 60px -15px rgba(0, 0, 0, 0.7),
-                inset 0 1px 0 rgba(255, 255, 255, 0.1);
-            animation: entryFade 0.9s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        @keyframes entryFade {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.98);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* Badge Superior de Estado de Servidor */
-        .top-status-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .status-pill {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            padding: 8px 18px;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            border-radius: 999px;
-            font-size: 0.82rem;
-            color: #6ee7b7;
-            font-weight: 600;
-            letter-spacing: 0.3px;
-        }
-
-        .pulse-dot {
-            width: 8px;
-            height: 8px;
-            background-color: var(--accent-emerald);
-            border-radius: 50%;
-            box-shadow: 0 0 12px var(--accent-emerald);
-            animation: pulseGlow 2s infinite;
-        }
-
-        @keyframes pulseGlow {
-            0% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7); }
-            70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(16, 185, 129, 0); }
-            100% { transform: scale(0.9); box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
-        }
-
-        .version-tag {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.78rem;
-            color: var(--text-muted);
-            background: rgba(255, 255, 255, 0.05);
-            padding: 5px 12px;
-            border-radius: 8px;
-            border: 1px solid var(--border-subtle);
-        }
-
-        /* Hero Icon / Avatar de Plataforma */
-        .hero-header {
-            text-align: center;
-            margin-bottom: 35px;
-        }
-
-        .hero-badge-icon {
-            display: inline-flex;
-            justify-content: center;
-            align-items: center;
-            width: 84px;
-            height: 84px;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.25), rgba(139, 92, 246, 0.35));
-            border: 1px solid rgba(139, 92, 246, 0.4);
-            border-radius: 26px;
-            margin-bottom: 22px;
-            box-shadow: var(--glow-indigo);
-            transition: all 0.4s ease;
-        }
-
-        .hero-badge-icon:hover {
-            transform: translateY(-4px) rotate(6deg);
-            box-shadow: 0 0 35px rgba(99, 102, 241, 0.6);
-            border-color: var(--accent-cyan);
-        }
-
-        .hero-badge-icon svg {
-            width: 44px;
-            height: 44px;
-            fill: #c7d2fe;
-        }
-
-        /* Tipografía de Encabezado */
-        h1 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 3.4rem;
-            font-weight: 900;
-            line-height: 1.12;
-            letter-spacing: -1.2px;
-            background: linear-gradient(135deg, #ffffff 25%, #a5b4fc 65%, #38bdf8 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 15px;
-        }
-
-        .subtitle {
-            font-size: 1.15rem;
-            color: var(--text-muted);
-            max-width: 650px;
-            margin: 0 auto;
-            line-height: 1.65;
-            font-weight: 400;
-        }
-
-        /* ===================================================
-           TARJETA CREATIVA DEL ESTUDIANTE: JERÓNIMO MESA
-        =================================================== */
-        .student-profile-banner {
-            background: linear-gradient(135deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%);
-            border: 1px solid rgba(99, 102, 241, 0.3);
-            border-radius: 26px;
-            padding: 30px;
-            margin: 35px 0;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            transition: all 0.3s ease;
-            text-align: left;
-        }
-
-        .student-profile-banner:hover {
-            border-color: var(--accent-cyan);
-            box-shadow: 0 20px 45px rgba(6, 182, 212, 0.2);
-            transform: translateY(-2px);
-        }
-
-        .student-profile-banner::after {
-            content: '';
-            position: absolute;
-            top: -40px;
-            right: -40px;
-            width: 150px;
-            height: 150px;
-            background: radial-gradient(circle, rgba(6, 182, 212, 0.2) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .profile-content {
-            display: flex;
-            align-items: center;
-            gap: 24px;
-            flex-wrap: wrap;
-        }
-
-        .profile-avatar {
-            width: 76px;
-            height: 76px;
-            border-radius: 22px;
-            background: linear-gradient(135deg, var(--primary-indigo), var(--accent-cyan));
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            box-shadow: 0 8px 20px rgba(99, 102, 241, 0.4);
-            flex-shrink: 0;
-            border: 2px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .profile-avatar svg {
-            width: 40px;
-            height: 40px;
-            fill: #ffffff;
-        }
-
-        .profile-details {
-            flex: 1;
-            min-width: 260px;
-        }
-
-        .academic-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.76rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.2px;
-            color: var(--accent-cyan);
-            background: rgba(6, 182, 212, 0.12);
-            padding: 4px 14px;
-            border-radius: 999px;
-            margin-bottom: 8px;
-            border: 1px solid rgba(6, 182, 212, 0.3);
-        }
-
-        .student-name {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.85rem;
-            font-weight: 800;
-            color: #ffffff;
-            letter-spacing: -0.5px;
-            margin-bottom: 6px;
-        }
-
-        .student-bio {
-            font-size: 0.95rem;
-            color: var(--text-body);
             line-height: 1.5;
         }
 
-        .tech-stack-row {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: 14px;
+        /* Contenedor Central Limpio y Estructurado */
+        .app-container {
+            max-width: 920px;
+            width: 100%;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 45px 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
         }
 
-        .tech-tag {
-            font-family: 'Fira Code', monospace;
-            font-size: 0.76rem;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            color: #e2e8f0;
-            padding: 4px 11px;
-            border-radius: 8px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        /* ===================================================
-           TRES PILARES ARQUITECTÓNICOS (CARDS)
-        =================================================== */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-            gap: 20px;
-            margin: 30px 0 45px 0;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 22px;
-            padding: 26px 22px;
-            text-align: left;
-            transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-6px);
-            border-color: rgba(99, 102, 241, 0.5);
-            background: rgba(30, 41, 59, 0.75);
-            box-shadow: 0 16px 30px rgba(0, 0, 0, 0.4);
-        }
-
-        .card-icon-box {
-            width: 48px;
-            height: 48px;
-            border-radius: 14px;
-            background: rgba(99, 102, 241, 0.15);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 18px;
-            border: 1px solid rgba(99, 102, 241, 0.25);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover .card-icon-box {
-            background: linear-gradient(135deg, var(--primary-indigo), var(--primary-violet));
-            box-shadow: var(--glow-indigo);
-            border-color: transparent;
-        }
-
-        .card-icon-box svg {
-            width: 24px;
-            height: 24px;
-            fill: #a5b4fc;
-            transition: fill 0.3s ease;
-        }
-
-        .feature-card:hover .card-icon-box svg {
-            fill: #ffffff;
-        }
-
-        .feature-card h3 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 8px;
-        }
-
-        .feature-card p {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-            line-height: 1.55;
-        }
-
-        /* ===================================================
-           MÓDULO DE EVALUACIÓN INTERACTIVO (QUIZ)
-        =================================================== */
-        .quiz-wrapper {
-            background: rgba(15, 23, 42, 0.85);
-            border: 1px solid rgba(139, 92, 246, 0.3);
-            border-radius: 28px;
-            padding: 38px 34px;
-            text-align: left;
-            position: relative;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(20px);
-        }
-
-        .quiz-top-bar {
+        /* Barra de Estado Superior */
+        .status-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
             padding-bottom: 20px;
-            margin-bottom: 26px;
+            margin-bottom: 30px;
+            border-bottom: 1px solid var(--border-color);
             flex-wrap: wrap;
-            gap: 14px;
-        }
-
-        .quiz-heading-group h2 {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.95rem;
-            font-weight: 800;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
             gap: 12px;
-            letter-spacing: -0.4px;
         }
 
-        .quiz-heading-group p {
-            font-size: 0.92rem;
-            color: var(--text-muted);
-            margin-top: 4px;
-        }
-
-        .step-counter-badge {
-            font-family: 'Fira Code', monospace;
-            background: linear-gradient(135deg, rgba(99, 102, 241, 0.2), rgba(6, 182, 212, 0.2));
-            border: 1px solid var(--border-glow);
-            color: #38bdf8;
-            font-size: 0.84rem;
-            font-weight: 600;
-            padding: 7px 16px;
+        .server-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(16, 185, 129, 0.1);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.25);
+            padding: 6px 14px;
             border-radius: 999px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+            font-size: 0.82rem;
+            font-weight: 600;
         }
 
-        /* Pregunta */
-        .question-container {
-            margin-bottom: 26px;
+        .server-dot {
+            width: 8px;
+            height: 8px;
+            background: #10b981;
+            border-radius: 50%;
         }
 
-        .question-category {
+        .system-meta {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            background: #1e293b;
+            padding: 6px 12px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        /* Encabezado */
+        .title-section {
+            text-align: left;
+            margin-bottom: 30px;
+        }
+
+        .badge-category {
             display: inline-block;
             font-size: 0.78rem;
             font-weight: 700;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--primary-violet);
-            margin-bottom: 8px;
+            letter-spacing: 0.8px;
+            color: var(--sky-light);
+            background: rgba(2, 132, 199, 0.15);
+            padding: 4px 12px;
+            border-radius: 6px;
+            margin-bottom: 12px;
+            border: 1px solid rgba(56, 189, 248, 0.2);
         }
 
-        .question-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 1.35rem;
-            font-weight: 700;
+        h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
             color: #ffffff;
-            line-height: 1.45;
+            line-height: 1.25;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
         }
 
-        /* Opciones */
-        .options-list {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
-            margin-bottom: 28px;
+        .lead-text {
+            font-size: 1.05rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
         }
 
-        .quiz-option-card {
-            background: rgba(30, 41, 59, 0.45);
-            border: 1.5px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px;
-            padding: 18px 22px;
+        /* ===================================================
+           TARJETA DEL ESTUDIANTE: JERÓNIMO MESA
+        =================================================== */
+        .student-banner {
+            background: #172236;
+            border: 1px solid #293850;
+            border-radius: 16px;
+            padding: 24px 28px;
+            margin-bottom: 35px;
             display: flex;
             align-items: center;
-            gap: 18px;
-            cursor: pointer;
-            transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-            user-select: none;
-            position: relative;
+            gap: 22px;
+            flex-wrap: wrap;
         }
 
-        .quiz-option-card:hover:not(.locked) {
-            background: rgba(99, 102, 241, 0.12);
-            border-color: var(--primary-indigo);
-            transform: translateX(6px);
-        }
-
-        /* Estado Seleccionado */
-        .quiz-option-card.chosen {
-            background: rgba(6, 182, 212, 0.16);
-            border-color: var(--accent-cyan);
-            box-shadow: var(--glow-cyan);
-        }
-
-        /* Estado Correcto */
-        .quiz-option-card.state-correct {
-            background: rgba(16, 185, 129, 0.18) !important;
-            border-color: var(--accent-emerald) !important;
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.35);
-        }
-
-        /* Estado Incorrecto */
-        .quiz-option-card.state-wrong {
-            background: rgba(244, 63, 94, 0.18) !important;
-            border-color: var(--accent-rose) !important;
-            box-shadow: 0 0 20px rgba(244, 63, 94, 0.35);
-        }
-
-        .quiz-option-card.locked {
-            cursor: default;
-        }
-
-        .option-key {
-            width: 38px;
-            height: 38px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+        .student-avatar-box {
+            width: 58px;
+            height: 58px;
+            background: #2563eb;
+            border-radius: 14px;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Fira Code', monospace;
-            font-weight: 700;
-            font-size: 0.95rem;
-            color: #94a3b8;
             flex-shrink: 0;
-            transition: all 0.2s ease;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.3);
         }
 
-        .quiz-option-card.chosen .option-key {
-            background: var(--accent-cyan);
-            color: #082f49;
-            border-color: transparent;
+        .student-avatar-box svg {
+            width: 30px;
+            height: 30px;
+            fill: #ffffff;
         }
 
-        .quiz-option-card.state-correct .option-key {
-            background: var(--accent-emerald);
-            color: #064e3b;
-            border-color: transparent;
+        .student-details {
+            flex: 1;
+            min-width: 250px;
         }
 
-        .quiz-option-card.state-wrong .option-key {
-            background: var(--accent-rose);
+        .student-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #93c5fd;
+        }
+
+        .student-name {
+            font-size: 1.4rem;
+            font-weight: 700;
             color: #ffffff;
-            border-color: transparent;
+            margin: 2px 0 6px 0;
         }
 
-        .option-label {
-            font-size: 1rem;
-            color: var(--text-body);
+        .student-course {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        .student-tags {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .tag-item {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            background: #0f172a;
+            border: 1px solid #334155;
+            color: #cbd5e1;
+            padding: 3px 10px;
+            border-radius: 6px;
+        }
+
+        /* Características / Pilares Técnicos */
+        .pillars-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .pillar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 20px;
+            transition: border-color 0.2s, transform 0.2s;
+        }
+
+        .pillar-card:hover {
+            border-color: var(--primary-blue);
+            transform: translateY(-2px);
+        }
+
+        .pillar-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(37, 99, 235, 0.15);
+            border: 1px solid rgba(37, 99, 235, 0.3);
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+
+        .pillar-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: #60a5fa;
+        }
+
+        .pillar-card h3 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 6px;
+        }
+
+        .pillar-card p {
+            font-size: 0.88rem;
+            color: var(--text-secondary);
             line-height: 1.5;
+        }
+
+        /* ===================================================
+           MÓDULO DEL QUIZ INTERACTIVO
+        =================================================== */
+        .quiz-panel {
+            background: #162032;
+            border: 1px solid #2d3d54;
+            border-radius: 18px;
+            padding: 32px 28px;
+        }
+
+        .quiz-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-bottom: 18px;
+            margin-bottom: 22px;
+            border-bottom: 1px solid #2d3d54;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .quiz-top h2 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #ffffff;
+        }
+
+        .question-badge {
+            font-family: 'JetBrains Mono', monospace;
+            background: #1e293b;
+            color: #60a5fa;
+            border: 1px solid #3b82f6;
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 5px 12px;
+            border-radius: 6px;
+        }
+
+        /* Pregunta */
+        .question-category {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #60a5fa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+
+        .question-headline {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #ffffff;
+            line-height: 1.45;
+            margin-bottom: 22px;
+        }
+
+        /* Lista de Opciones */
+        .choices-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 24px;
+        }
+
+        .choice-card {
+            background: var(--bg-card);
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            padding: 15px 18px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .choice-card:hover:not(.locked) {
+            background: var(--bg-card-hover);
+            border-color: #4b5563;
+        }
+
+        /* Seleccionado */
+        .choice-card.selected {
+            background: #1e3a8a;
+            border-color: #3b82f6;
+        }
+
+        /* Correcto */
+        .choice-card.is-correct {
+            background: var(--success-bg) !important;
+            border-color: var(--success-border) !important;
+        }
+
+        /* Incorrecto */
+        .choice-card.is-wrong {
+            background: var(--error-bg) !important;
+            border-color: var(--error-border) !important;
+        }
+
+        .choice-key {
+            width: 32px;
+            height: 32px;
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: #cbd5e1;
+            flex-shrink: 0;
+        }
+
+        .choice-card.selected .choice-key {
+            background: #2563eb;
+            color: #ffffff;
+            border-color: #60a5fa;
+        }
+
+        .choice-card.is-correct .choice-key {
+            background: #10b981;
+            color: #ffffff;
+            border-color: #059669;
+        }
+
+        .choice-card.is-wrong .choice-key {
+            background: #ef4444;
+            color: #ffffff;
+            border-color: #dc2626;
+        }
+
+        .choice-text {
+            font-size: 0.95rem;
+            color: #e2e8f0;
+            line-height: 1.45;
             flex: 1;
         }
 
-        .quiz-option-card.chosen .option-label {
+        .choice-card.selected .choice-text {
             color: #ffffff;
             font-weight: 500;
         }
 
         /* Panel de Retroalimentación */
-        .feedback-box {
-            border-radius: 18px;
-            padding: 22px;
-            margin-bottom: 26px;
+        .feedback-area {
+            border-radius: 12px;
+            padding: 18px 20px;
+            margin-bottom: 24px;
             display: none;
-            animation: slideDown 0.35s ease;
         }
 
-        @keyframes slideDown {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .feedback-box.correct {
+        .feedback-area.correct {
             display: block;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.4);
+            background: var(--success-bg);
+            border: 1px solid var(--success-border);
         }
 
-        .feedback-box.wrong {
+        .feedback-area.wrong {
             display: block;
-            background: rgba(244, 63, 94, 0.12);
-            border: 1px solid rgba(244, 63, 94, 0.4);
+            background: var(--error-bg);
+            border: 1px solid var(--error-border);
         }
 
-        .feedback-title-row {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-family: 'Outfit', sans-serif;
+        .feedback-header {
             font-weight: 700;
-            font-size: 1.18rem;
-            margin-bottom: 8px;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
         }
 
-        .feedback-box.correct .feedback-title-row {
-            color: #6ee7b7;
+        .feedback-area.correct .feedback-header {
+            color: #34d399;
         }
 
-        .feedback-box.wrong .feedback-title-row {
-            color: #fda4af;
+        .feedback-area.wrong .feedback-header {
+            color: #f87171;
         }
 
-        .feedback-body {
-            font-size: 0.95rem;
-            line-height: 1.6;
-            color: #e2e8f0;
+        .feedback-text {
+            font-size: 0.9rem;
+            color: #f1f5f9;
+            line-height: 1.5;
         }
 
-        /* Botones de Acción */
-        .button-bar {
+        /* Botones */
+        .controls-row {
             display: flex;
             justify-content: flex-end;
-            gap: 14px;
+            gap: 12px;
             align-items: center;
             flex-wrap: wrap;
         }
 
-        .action-btn {
-            font-family: 'Outfit', sans-serif;
-            font-weight: 700;
-            font-size: 0.98rem;
-            padding: 13px 28px;
-            border-radius: 14px;
+        .btn-ui {
+            font-family: inherit;
+            font-size: 0.92rem;
+            font-weight: 600;
+            padding: 11px 22px;
+            border-radius: 10px;
             cursor: pointer;
-            transition: all 0.25s ease;
             border: none;
-            outline: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
+            transition: background-color 0.2s, opacity 0.2s;
         }
 
-        .btn-validate {
-            background: linear-gradient(135deg, var(--primary-indigo) 0%, var(--primary-violet) 100%);
-            color: #ffffff;
-            box-shadow: 0 8px 22px rgba(99, 102, 241, 0.4);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-        }
-
-        .btn-validate:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(99, 102, 241, 0.6);
-            background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
-        }
-
-        .btn-next-step {
-            background: linear-gradient(135deg, var(--accent-cyan) 0%, #0284c7 100%);
-            color: #ffffff;
-            box-shadow: 0 8px 22px rgba(6, 182, 212, 0.4);
-        }
-
-        .btn-next-step:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(6, 182, 212, 0.6);
-        }
-
-        .btn-ghost {
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text-body);
-            border: 1px solid var(--border-subtle);
-        }
-
-        .btn-ghost:hover {
-            background: rgba(255, 255, 255, 0.12);
+        .btn-primary {
+            background: var(--primary-blue);
             color: #ffffff;
         }
 
-        .action-btn:disabled {
-            opacity: 0.35;
+        .btn-primary:hover:not(:disabled) {
+            background: var(--primary-blue-hover);
+        }
+
+        .btn-next {
+            background: #0284c7;
+            color: #ffffff;
+        }
+
+        .btn-next:hover {
+            background: #0369a1;
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--border-color);
+        }
+
+        .btn-outline:hover {
+            background: #1e293b;
+            color: #ffffff;
+        }
+
+        .btn-ui:disabled {
+            opacity: 0.4;
             cursor: not-allowed;
-            transform: none !important;
-            box-shadow: none !important;
         }
 
-        /* Pantalla Final de Métricas */
-        .summary-screen {
+        /* Pantalla Final de Resultados */
+        .results-box {
             display: none;
             text-align: center;
-            padding: 30px 15px;
+            padding: 25px 15px;
         }
 
-        .score-orb {
-            width: 110px;
-            height: 110px;
-            margin: 0 auto 24px auto;
+        .score-circle {
+            width: 90px;
+            height: 90px;
+            margin: 0 auto 18px auto;
             border-radius: 50%;
-            background: linear-gradient(135deg, var(--primary-indigo), var(--accent-cyan));
+            background: #1e3a8a;
+            border: 2px solid #3b82f6;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            box-shadow: var(--glow-cyan);
-            border: 3px solid rgba(255, 255, 255, 0.2);
         }
 
-        .score-orb .score-num {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.4rem;
-            font-weight: 900;
+        .score-circle .score-num {
+            font-size: 1.9rem;
+            font-weight: 800;
             color: #ffffff;
             line-height: 1;
         }
 
-        .score-orb .score-text {
-            font-size: 0.72rem;
-            font-weight: 700;
+        .score-circle .score-desc {
+            font-size: 0.7rem;
+            font-weight: 600;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: #e0f2fe;
+            color: #93c5fd;
         }
 
-        .summary-title {
-            font-family: 'Outfit', sans-serif;
-            font-size: 2.2rem;
-            font-weight: 800;
+        .results-title {
+            font-size: 1.6rem;
+            font-weight: 700;
             color: #ffffff;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
-        .summary-desc {
-            font-size: 1.05rem;
-            color: var(--text-body);
-            max-width: 560px;
-            margin: 0 auto 28px auto;
-            line-height: 1.6;
+        .results-msg {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin: 0 auto 22px auto;
+            line-height: 1.5;
         }
 
-        /* Footer */
-        .page-footer {
-            margin-top: 45px;
-            padding-top: 24px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            font-size: 0.88rem;
+        /* Pie de página */
+        .app-footer {
+            margin-top: 35px;
+            padding-top: 20px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.85rem;
             color: var(--text-muted);
             display: flex;
             justify-content: space-between;
-            align-items: center;
             flex-wrap: wrap;
-            gap: 12px;
+            gap: 10px;
         }
 
-        .page-footer strong {
-            color: #f1f5f9;
+        .app-footer strong {
+            color: var(--text-secondary);
         }
 
-        /* Adaptabilidad Móvil */
-        @media (max-width: 700px) {
-            .container {
-                padding: 35px 20px;
-                border-radius: 24px;
+        @media (max-width: 650px) {
+            .app-container {
+                padding: 28px 18px;
             }
 
             h1 {
-                font-size: 2.3rem;
+                font-size: 1.7rem;
             }
 
-            .subtitle {
-                font-size: 1rem;
-            }
-
-            .profile-content {
+            .student-banner {
                 flex-direction: column;
                 text-align: center;
             }
 
-            .profile-details {
+            .student-details {
                 text-align: center;
             }
 
-            .tech-stack-row {
+            .student-tags {
                 justify-content: center;
             }
 
-            .quiz-wrapper {
-                padding: 24px 18px;
+            .quiz-panel {
+                padding: 20px 15px;
             }
 
-            .button-bar {
+            .controls-row {
                 justify-content: center;
             }
 
-            .page-footer {
+            .app-footer {
                 flex-direction: column;
                 text-align: center;
             }
@@ -822,151 +621,123 @@
 
 <body>
 
-    <!-- Fondos de Luz Neón Ambientales -->
-    <div class="ambient-mesh ambient-1"></div>
-    <div class="ambient-mesh ambient-2"></div>
+    <div class="app-container">
 
-    <div class="container">
-
-        <!-- Barra Superior de Estado -->
-        <div class="top-status-row">
-            <div class="status-pill">
-                <span class="pulse-dot"></span>
-                <span>WSGI Flask Activo &bull; Producción Ready</span>
+        <!-- Barra de Estado Superior -->
+        <div class="status-header">
+            <div class="server-status">
+                <span class="server-dot"></span>
+                <span>Servidor Flask Online &bull; Puerto 5000</span>
             </div>
-            <div class="version-tag">Python v3.13 &bull; Cloud PaaS</div>
+            <div class="system-meta">Python 3.13 &bull; WSGI Gunicorn &bull; Render</div>
         </div>
 
-        <!-- Encabezado Principal -->
-        <div class="hero-header">
-            <div class="hero-badge-icon" title="Arquitectura de Software">
-                <!-- Icono Geométrico de Arquitectura / Capas -->
+        <!-- Encabezado de la Página -->
+        <div class="title-section">
+            <span class="badge-category">Ingeniería de Software II &bull; Parcial 1</span>
+            <h1>Arquitectura de Software & Selección de Stack</h1>
+            <p class="lead-text">Aplicación web modular desarrollada en Python y Flask, estructurada para evaluación técnica diagnóstica y despliegue en la nube.</p>
+        </div>
+
+        <!-- ===================================================
+             SECCIÓN DEL ESTUDIANTE: JERÓNIMO MESA
+        =================================================== -->
+        <div class="student-banner">
+            <div class="student-avatar-box">
+                <!-- Icono de Desarrollador / Código -->
                 <svg viewBox="0 0 24 24">
-                    <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
                 </svg>
             </div>
-            <h1>Arquitectura de Software & Stacks</h1>
-            <p class="subtitle">Entorno interactivo para el estudio y evaluación diagnóstica de estilos arquitectónicos modernos, microframeworks y despliegue en la nube.</p>
-        </div>
-
-        <!-- ===================================================
-             TARJETA DE IDENTIDAD DEL ESTUDIANTE: JERÓNIMO MESA
-        =================================================== -->
-        <div class="student-profile-banner" id="student-credentials">
-            <div class="profile-content">
-                <div class="profile-avatar">
-                    <!-- Icono Terminal / Desarrollador -->
-                    <svg viewBox="0 0 24 24">
-                        <path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/>
-                    </svg>
-                </div>
-                <div class="profile-details">
-                    <span class="academic-badge">Ingeniería de Software II &bull; Evaluación Práctica</span>
-                    <h2 class="student-name">Jerónimo Mesa</h2>
-                    <p class="student-bio">
-                        Corporación Universitaria Lasallista &bull; Adaptación del frontend con diseño cyber-dark, integración del quiz interactivo con retroalimentación en tiempo real y pipeline GitFlow para despliegue en Render.
-                    </p>
-                    <div class="tech-stack-row">
-                        <span class="tech-tag">⚡ Python 3.13 + Flask</span>
-                        <span class="tech-tag">🏛️ Arquitectura Hexagonal & MVT</span>
-                        <span class="tech-tag">🌐 Gunicorn WSGI</span>
-                        <span class="tech-tag">☁️ Render Cloud</span>
-                    </div>
+            <div class="student-details">
+                <div class="student-label">Desarrollo y Adaptación</div>
+                <div class="student-name">Jerónimo Mesa</div>
+                <div class="student-course">Corporación Universitaria Lasallista &bull; Caso Práctico 2</div>
+                <div class="student-tags">
+                    <span class="tag-item">Python 3.13</span>
+                    <span class="tag-item">Flask MVT</span>
+                    <span class="tag-item">Git / GitHub</span>
+                    <span class="tag-item">Render PaaS</span>
                 </div>
             </div>
         </div>
 
-        <!-- Tres Pilares Arquitectónicos -->
-        <div class="cards-grid">
-            <!-- Pilar 1 -->
-            <div class="feature-card">
-                <div class="card-icon-box">
-                    <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h7"/></svg>
+        <!-- Pilares Técnicos del Proyecto -->
+        <div class="pillars-grid">
+            <div class="pillar-card">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h16M4 18h8"/></svg>
                 </div>
-                <h3>Arquitectura MVT</h3>
-                <p>Separación modular entre rutas controladoras, plantillas Jinja2 y estructuras de datos dinámicas.</p>
+                <h3>Patrón MVC / MVT</h3>
+                <p>Estructura monolítica liviana: enrutamiento en <code>app.py</code> y capa de vista desacoplada en <code>templates/</code>.</p>
             </div>
-
-            <!-- Pilar 2 -->
-            <div class="feature-card">
-                <div class="card-icon-box">
-                    <svg viewBox="0 0 24 24"><path d="M12 3v18m9-9H3"/></svg>
+            <div class="pillar-card">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
                 </div>
-                <h3>Servidor WSGI</h3>
-                <p>Gunicorn gestiona procesos concurrentes desacoplando el servidor HTTP de producción del microframework.</p>
+                <h3>Arquitectura Hexagonal</h3>
+                <p>Aislamiento del núcleo de negocio mediante puertos y adaptadores para independizarlo de frameworks y bases de datos.</p>
             </div>
-
-            <!-- Pilar 3 -->
-            <div class="feature-card">
-                <div class="card-icon-box">
-                    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1010 10A10 10 0 0012 2zm1 15h-2v-6h2zm0-8h-2V7h2z"/></svg>
+            <div class="pillar-card">
+                <div class="pillar-icon">
+                    <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96z"/></svg>
                 </div>
-                <h3>Despliegue PaaS</h3>
-                <p>Integración continua mediante GitHub conectada a Render para publicación automatizada y sin fricción.</p>
+                <h3>Despliegue en Render</h3>
+                <p>Publicación automática conectada al repositorio GitHub con servidor WSGI Gunicorn para tráfico concurrente.</p>
             </div>
         </div>
 
         <!-- ===================================================
-             MÓDULO DE EVALUACIÓN INTERACTIVO (QUIZ)
+             MÓDULO DEL QUIZ INTERACTIVO
         =================================================== -->
-        <div class="quiz-wrapper" id="quiz-root">
+        <div class="quiz-panel" id="quiz-block">
             
-            <div class="quiz-top-bar">
-                <div class="quiz-heading-group">
-                    <h2>🧠 Quiz: Stacks & Arquitecturas</h2>
-                    <p>Evalúa tus conocimientos técnicos sobre patrones de diseño de software y despliegue.</p>
-                </div>
-                <div class="step-counter-badge" id="quiz-step-indicator">
-                    Pregunta 1 de 4
-                </div>
+            <div class="quiz-top">
+                <h2>Cuestionario Diagnóstico</h2>
+                <div class="question-badge" id="quiz-counter">Pregunta 1 de 4</div>
             </div>
 
-            <!-- Vista de Pregunta Activa -->
-            <div id="view-active-question">
-                <div class="question-container">
-                    <span class="question-category" id="question-category-tag">Conceptos Arquitectónicos</span>
-                    <h3 class="question-title" id="active-question-text">Cargando pregunta...</h3>
+            <!-- Vista de la Pregunta Activa -->
+            <div id="screen-question">
+                <div class="question-category" id="q-category">Tema: Arquitecturas de Software</div>
+                <div class="question-headline" id="q-text">Cargando enunciado...</div>
+
+                <!-- Lista de 4 opciones -->
+                <div class="choices-container" id="choices-list"></div>
+
+                <!-- Retroalimentación -->
+                <div class="feedback-area" id="feedback-card">
+                    <div class="feedback-header" id="fb-title"></div>
+                    <div class="feedback-text" id="fb-explanation"></div>
                 </div>
 
-                <!-- Contenedor de 4 Opciones -->
-                <div class="options-list" id="options-holder"></div>
-
-                <!-- Panel de Retroalimentación -->
-                <div class="feedback-box" id="feedback-display">
-                    <div class="feedback-title-row" id="feedback-status-title">
-                        <span id="feedback-icon-glyph"></span>
-                        <span id="feedback-heading-text"></span>
-                    </div>
-                    <div class="feedback-body" id="feedback-explanation"></div>
-                </div>
-
-                <!-- Barra de Acciones -->
-                <div class="button-bar">
-                    <button class="action-btn btn-ghost" id="btn-back" onclick="quizController.previous()" style="display: none;">
+                <!-- Botones de Acción -->
+                <div class="controls-row">
+                    <button class="btn-ui btn-outline" id="btn-prev" onclick="quizApp.goPrev()" style="display: none;">
                         &larr; Anterior
                     </button>
-                    <button class="action-btn btn-validate" id="btn-check" onclick="quizController.validate()" disabled>
-                        Verificar Respuesta
+                    <button class="btn-ui btn-primary" id="btn-submit" onclick="quizApp.submitAnswer()" disabled>
+                        Comprobar Respuesta
                     </button>
-                    <button class="action-btn btn-next-step" id="btn-forward" onclick="quizController.forward()" style="display: none;">
+                    <button class="btn-ui btn-next" id="btn-next" onclick="quizApp.goNext()" style="display: none;">
                         Siguiente Pregunta &rarr;
                     </button>
                 </div>
             </div>
 
-            <!-- Vista de Resumen y Aciertos -->
-            <div class="summary-screen" id="view-final-summary">
-                <div class="score-orb">
-                    <span class="score-num" id="metric-score">0</span>
-                    <span class="score-text">Aciertos</span>
+            <!-- Vista de Resultados Finales -->
+            <div class="results-box" id="screen-results">
+                <div class="score-circle">
+                    <span class="score-num" id="total-score">0</span>
+                    <span class="score-desc">Aciertos</span>
                 </div>
-                <h3 class="summary-title">¡Evaluación Finalizada!</h3>
-                <p class="summary-desc" id="metric-feedback-message">
-                    Has completado exitosamente la autoevaluación diagnóstica sobre conceptos de arquitectura.
+                <h3 class="results-title">Evaluación Completada</h3>
+                <p class="results-msg" id="results-feedback-text">
+                    Has finalizado las preguntas técnicas del parcial.
                 </p>
-                <div class="button-bar" style="justify-content: center;">
-                    <button class="action-btn btn-validate" onclick="quizController.restart()">
-                        🔄 Repetir Evaluación
+                <div class="controls-row" style="justify-content: center;">
+                    <button class="btn-ui btn-primary" onclick="quizApp.reset()">
+                        Reintentar Cuestionario
                     </button>
                 </div>
             </div>
@@ -974,267 +745,241 @@
         </div>
 
         <!-- Footer -->
-        <div class="page-footer">
+        <div class="app-footer">
             <div>
-                <span>Repositorio Base: </span>
+                <span>Proyecto Base: </span>
                 <strong>g3in-unilasallista / Feibert Alirio Guzmán Pérez</strong>
             </div>
             <div>
-                <span>Desarrollo & Adaptación: </span>
+                <span>Estudiante: </span>
                 <strong>Jerónimo Mesa</strong> &bull; Ing. de Software II
             </div>
         </div>
 
     </div>
 
-    <!-- Lógica del Quiz y Estado -->
+    <!-- Script de Interactividad del Quiz -->
     <script>
-        const quizBank = [
+        const questionsList = [
             {
-                category: "Patrones Arquitectónicos Modernos",
-                question: "¿Cuál es la principal característica y objetivo de la Arquitectura Hexagonal (Puertos y Adaptadores)?",
-                choices: [
-                    "Acoplar directamente la lógica de negocio al motor de base de datos para optimizar la velocidad de consulta.",
-                    "Aislar el núcleo de la lógica de negocio (dominio) del exterior mediante puertos (interfaces) y adaptadores, permitiendo intercambiar bases de datos o frameworks sin modificar las reglas de negocio.",
-                    "Dividir obligatoriamente el sistema en exactamente seis capas físicas distribuidas en diferentes servidores de nube.",
-                    "Evitar el uso de interfaces de programación de aplicaciones (APIs) y comunicarse únicamente mediante archivos de texto plano."
+                category: "Arquitectura Hexagonal (Puertos y Adaptadores)",
+                question: "¿Cuál es la principal característica y objetivo de la Arquitectura Hexagonal?",
+                options: [
+                    "Acoplar directamente la lógica de negocio al motor de base de datos para ganar velocidad.",
+                    "Aislar el núcleo de la lógica de negocio (dominio) del exterior mediante puertos (interfaces) y adaptadores, permitiendo cambiar bases de datos o frameworks sin alterar el dominio.",
+                    "Dividir obligatoriamente la aplicación en exactamente seis servidores físicos independientes.",
+                    "Reemplazar por completo el protocolo HTTP por archivos de texto plano para la comunicación."
                 ],
-                correctChoice: 1,
-                explanations: {
-                    right: "¡Excelente! La arquitectura hexagonal desacopla completamente el núcleo de negocio (dominio) de la infraestructura. La aplicación interactúa mediante puertos (contratos/interfaces) y adaptadores (tecnologías externas como BD o web), garantizando alta mantenibilidad y testabilidad.",
-                    wrong: "Respuesta incorrecta. El objetivo principal de la arquitectura hexagonal es el aislamiento del dominio: separar las reglas de negocio de los detalles técnicos y de infraestructura externa mediante puertos y adaptadores."
-                }
+                correctIndex: 1,
+                explanationCorrect: "¡Correcto! La arquitectura hexagonal desacopla completamente las reglas del dominio respecto a la infraestructura exterior (frameworks, bases de datos o APIs) mediante contratos (puertos) e implementaciones (adaptadores).",
+                explanationWrong: "Incorrecto. La esencia de la arquitectura hexagonal es el desacoplamiento: el dominio central no debe depender de ningún detalle técnico externo, comunicándose únicamente a través de puertos y adaptadores."
             },
             {
-                category: "Definición y Selección de Stack",
-                question: "¿Qué define y comprende un 'Stack Tecnológico' en el desarrollo de software profesional?",
-                choices: [
-                    "El ecosistema integrado de lenguajes, frameworks de backend, librerías de frontend, bases de datos y herramientas de infraestructura/despliegue que hacen operativa una aplicación.",
-                    "Únicamente el conjunto de hojas de estilo CSS aplicadas al diseño gráfico del navegador.",
-                    "La cantidad física de memoria RAM y núcleos de procesamiento asignados a los servidores virtuales.",
-                    "El archivo comprimido zip que contiene el código fuente para ser compartido por correo."
+                category: "Definición y Selección de Stack Tecnológico",
+                question: "¿Qué define a un 'Stack Tecnológico' en un proyecto de software?",
+                options: [
+                    "El ecosistema integrado de lenguajes, frameworks backend, librerías frontend, persistencia y servicios de despliegue que soportan la aplicación.",
+                    "Únicamente los archivos de estilos CSS aplicados a la apariencia visual de las páginas.",
+                    "La cantidad de memoria RAM asignada a los servidores virtuales en la nube.",
+                    "El archivo comprimido zip que se utiliza para respaldar el código fuente."
                 ],
-                choicesIcons: ["A", "B", "C", "D"],
-                correctChoice: 0,
-                explanations: {
-                    right: "¡Correcto! Un stack tecnológico abarca todas las capas de la solución: frontend (interfaz), backend (servidor y lógica), persistencia (datos) e infraestructura/cloud (despliegue como Render o Docker).",
-                    wrong: "Incorrecto. Un stack tecnológico no es una herramienta aislada, sino la combinación articulada de todas las tecnologías que componen el ciclo de vida de ejecución de la solución."
-                }
+                correctIndex: 0,
+                explanationCorrect: "¡Muy bien! Un stack tecnológico es la combinación de tecnologías seleccionadas (en este caso: Python/Flask en backend, HTML/CSS/JS en frontend y Render como infraestructura) para dar solución a los requerimientos.",
+                explanationWrong: "Incorrecto. Un stack comprende el conjunto articulado de todas las capas tecnológicas que intervienen en la construcción y operación del software (cliente, servidor, datos e infraestructura)."
             },
             {
-                category: "Estilos Arquitectónicos",
+                category: "Monolitos vs. Microservicios",
                 question: "¿Cuál es la diferencia fundamental entre una Arquitectura Monolítica y una de Microservicios?",
-                choices: [
-                    "Las aplicaciones monolíticas solo se ejecutan en servidores locales físicos, mientras que los microservicios solo funcionan en teléfonos móviles.",
-                    "El monolito empaqueta y despliega todos los módulos del sistema en una sola unidad ejecutable, mientras que los microservicios descomponen el sistema en servicios independientes y autónomos con despliegue individual.",
-                    "Los microservicios prohíben el uso del protocolo HTTP y de APIs REST para la comunicación.",
+                options: [
+                    "Las aplicaciones monolíticas solo se ejecutan en servidores locales físicos, mientras que los microservicios solo corren en la nube.",
+                    "El monolito unifica y despliega todos los módulos del sistema en un único paquete ejecutable, mientras que los microservicios dividen el sistema en servicios autónomos e independientes.",
+                    "Los microservicios prohíben el uso de protocolos estándar como HTTP o APIs REST.",
                     "El monolito requiere obligatoriamente contenedores Docker para poder encender."
                 ],
-                correctChoice: 1,
-                explanations: {
-                    right: "¡Muy bien! En la arquitectura monolítica todo el sistema forma una sola unidad de despliegue. En microservicios, el sistema se divide por dominios en servicios independientes que pueden escalarse y actualizarse de forma aislada.",
-                    wrong: "Incorrecto. La distinción central radica en la unidad de despliegue y el acoplamiento: un monolito compila y despliega todo junto, mientras que los microservicios operan como unidades desacopladas y autónomas."
-                }
+                correctIndex: 1,
+                explanationCorrect: "¡Exacto! En la arquitectura monolítica todos los componentes comparten la misma unidad de despliegue. En microservicios, cada servicio gestiona su propio dominio y se despliega independientemente.",
+                explanationWrong: "Incorrecto. La diferencia clave radica en el acoplamiento y la unidad de despliegue: el monolito se empaqueta en conjunto, mientras que los microservicios operan y se despliegan de forma autónoma."
             },
             {
-                category: "Infraestructura & Despliegue en la Nube",
-                question: "En el stack de este proyecto (Python + Flask en Render), ¿cuál es el rol de Gunicorn según el archivo Procfile?",
-                choices: [
-                    "Almacenar las preguntas y respuestas del quiz en una base de datos relacional.",
-                    "Actuar como servidor WSGI (Web Server Gateway Interface) de producción para procesar peticiones concurrentes de internet y delegarlas eficientemente a Flask.",
+                category: "Infraestructura & Servidores WSGI",
+                question: "En el stack de este proyecto (Python + Flask en Render), ¿cuál es el rol de Gunicorn según el Procfile?",
+                options: [
+                    "Almacenar las respuestas de los usuarios en una base de datos relacional.",
+                    "Actuar como servidor WSGI (Web Server Gateway Interface) de producción para procesar peticiones concurrentes y enviarlas a Flask.",
                     "Generar automáticamente el código HTML y los estilos visuales de la página web.",
-                    "Controlar las ramas y commits de Git dentro del repositorio de GitHub."
+                    "Gestionar las ramas y confirmaciones (commits) de Git en el repositorio."
                 ],
-                correctChoice: 1,
-                explanations: {
-                    right: "¡Preciso! El servidor de desarrollo de Flask no es seguro ni eficiente para producción. Gunicorn proporciona un entorno WSGI multi-proceso para atender tráfico real de usuarios en Render.",
-                    wrong: "Incorrecto. Gunicorn es un servidor WSGI de producción para aplicaciones Python. Se especifica en el Procfile ('web: gunicorn app:app') para que la nube (Render) atienda tráfico concurrente de manera estable."
-                }
+                correctIndex: 1,
+                explanationCorrect: "¡Correcto! El servidor integrado de desarrollo de Flask no es apto para producción. Gunicorn actúa como servidor WSGI multi-proceso para atender el tráfico real de internet en Render.",
+                explanationWrong: "Incorrecto. Gunicorn es un servidor WSGI de producción que permite ejecutar aplicaciones Flask atendiendo múltiples solicitudes simultáneas de manera estable en la nube."
             }
         ];
 
-        class QuizManager {
-            constructor(bank) {
-                this.bank = bank;
-                this.index = 0;
-                this.selectedIdx = null;
-                this.sessionRecord = new Array(bank.length).fill(null);
-                this.scoreCount = 0;
+        class QuizEngine {
+            constructor(data) {
+                this.data = data;
+                this.current = 0;
+                this.selected = null;
+                this.history = new Array(data.length).fill(null);
+                this.score = 0;
 
-                // Elementos del DOM
-                this.stepBadge = document.getElementById('quiz-step-indicator');
-                this.categoryTag = document.getElementById('question-category-tag');
-                this.questionTitle = document.getElementById('active-question-text');
-                this.optionsHolder = document.getElementById('options-holder');
-                this.feedbackDisplay = document.getElementById('feedback-display');
-                this.feedbackTitle = document.getElementById('feedback-heading-text');
-                this.feedbackIcon = document.getElementById('feedback-icon-glyph');
-                this.feedbackExplanation = document.getElementById('feedback-explanation');
-                this.btnCheck = document.getElementById('btn-check');
-                this.btnForward = document.getElementById('btn-forward');
-                this.btnBack = document.getElementById('btn-back');
-                this.viewQuestion = document.getElementById('view-active-question');
-                this.viewSummary = document.getElementById('view-final-summary');
-                this.metricScore = document.getElementById('metric-score');
-                this.metricMsg = document.getElementById('metric-feedback-message');
+                // DOM
+                this.counterEl = document.getElementById('quiz-counter');
+                this.categoryEl = document.getElementById('q-category');
+                this.textEl = document.getElementById('q-text');
+                this.choicesList = document.getElementById('choices-list');
+                this.feedbackCard = document.getElementById('feedback-card');
+                this.fbTitle = document.getElementById('fb-title');
+                this.fbExplanation = document.getElementById('fb-explanation');
+                this.btnSubmit = document.getElementById('btn-submit');
+                this.btnNext = document.getElementById('btn-next');
+                this.btnPrev = document.getElementById('btn-prev');
+                this.screenQuestion = document.getElementById('screen-question');
+                this.screenResults = document.getElementById('screen-results');
+                this.totalScoreEl = document.getElementById('total-score');
+                this.resultsMsgEl = document.getElementById('results-feedback-text');
 
                 this.render();
             }
 
             render() {
-                const current = this.bank[this.index];
-                const record = this.sessionRecord[this.index];
+                const item = this.data[this.current];
+                const answered = this.history[this.current];
 
-                this.stepBadge.textContent = `Pregunta ${this.index + 1} de ${this.bank.length}`;
-                this.categoryTag.textContent = current.category;
-                this.questionTitle.textContent = current.question;
+                this.counterEl.textContent = `Pregunta ${this.current + 1} de ${this.data.length}`;
+                this.categoryEl.textContent = item.category;
+                this.textEl.textContent = item.question;
 
-                this.optionsHolder.innerHTML = '';
-                this.selectedIdx = record ? record.selected : null;
-                const letterKeys = ['A', 'B', 'C', 'D'];
+                this.choicesList.innerHTML = '';
+                this.selected = answered ? answered.selected : null;
+                const letters = ['A', 'B', 'C', 'D'];
 
-                current.choices.forEach((choiceText, i) => {
-                    const card = document.createElement('div');
-                    card.className = 'quiz-option-card';
-                    card.id = `choice-${i}`;
+                item.options.forEach((optText, i) => {
+                    const row = document.createElement('div');
+                    row.className = 'choice-card';
 
-                    if (record) {
-                        card.classList.add('locked');
-                        if (i === current.correctChoice) {
-                            card.classList.add('state-correct');
-                        } else if (i === record.selected) {
-                            card.classList.add('state-wrong');
+                    if (answered) {
+                        row.classList.add('locked');
+                        if (i === item.correctIndex) {
+                            row.classList.add('is-correct');
+                        } else if (i === answered.selected) {
+                            row.classList.add('is-wrong');
                         }
-                    } else if (this.selectedIdx === i) {
-                        card.classList.add('chosen');
+                    } else if (this.selected === i) {
+                        row.classList.add('selected');
                     }
 
-                    card.onclick = () => {
-                        if (this.sessionRecord[this.index] !== null) return;
-                        this.pick(i);
+                    row.onclick = () => {
+                        if (this.history[this.current] !== null) return;
+                        this.selectOption(i);
                     };
 
-                    card.innerHTML = `
-                        <div class="option-key">${letterKeys[i]}</div>
-                        <div class="option-label">${choiceText}</div>
+                    row.innerHTML = `
+                        <div class="choice-key">${letters[i]}</div>
+                        <div class="choice-text">${optText}</div>
                     `;
 
-                    this.optionsHolder.appendChild(card);
+                    this.choicesList.appendChild(row);
                 });
 
-                // Panel de Feedback
-                if (record) {
-                    this.showFeedback(record.isCorrect, current);
-                    this.btnCheck.style.display = 'none';
-                    this.btnForward.style.display = 'inline-flex';
-                    if (this.index === this.bank.length - 1) {
-                        this.btnForward.textContent = 'Ver Resultados Finales 🏆';
-                    } else {
-                        this.btnForward.textContent = 'Siguiente Pregunta →';
-                    }
+                if (answered) {
+                    this.showFeedback(answered.isCorrect, item);
+                    this.btnSubmit.style.display = 'none';
+                    this.btnNext.style.display = 'inline-block';
+                    this.btnNext.textContent = (this.current === this.data.length - 1) ? 'Ver Resultados' : 'Siguiente Pregunta →';
                 } else {
-                    this.feedbackDisplay.style.display = 'none';
-                    this.feedbackDisplay.className = 'feedback-box';
-                    this.btnCheck.style.display = 'inline-flex';
-                    this.btnCheck.disabled = (this.selectedIdx === null);
-                    this.btnForward.style.display = 'none';
+                    this.feedbackCard.className = 'feedback-area';
+                    this.feedbackCard.style.display = 'none';
+                    this.btnSubmit.style.display = 'inline-block';
+                    this.btnSubmit.disabled = (this.selected === null);
+                    this.btnNext.style.display = 'none';
                 }
 
-                // Botón Anterior
-                this.btnBack.style.display = (this.index > 0) ? 'inline-flex' : 'none';
+                this.btnPrev.style.display = (this.current > 0) ? 'inline-block' : 'none';
             }
 
-            pick(index) {
-                this.selectedIdx = index;
-                const cards = this.optionsHolder.querySelectorAll('.quiz-option-card');
-                cards.forEach((c, idx) => {
-                    if (idx === index) {
-                        c.classList.add('chosen');
-                    } else {
-                        c.classList.remove('chosen');
-                    }
+            selectOption(idx) {
+                this.selected = idx;
+                const cards = this.choicesList.querySelectorAll('.choice-card');
+                cards.forEach((c, i) => {
+                    if (i === idx) c.classList.add('selected');
+                    else c.classList.remove('selected');
                 });
-                this.btnCheck.disabled = false;
+                this.btnSubmit.disabled = false;
             }
 
-            validate() {
-                if (this.selectedIdx === null) return;
+            submitAnswer() {
+                if (this.selected === null) return;
+                const item = this.data[this.current];
+                const isCorrect = (this.selected === item.correctIndex);
 
-                const current = this.bank[this.index];
-                const isCorrect = (this.selectedIdx === current.correctChoice);
-
-                this.sessionRecord[this.index] = {
-                    selected: this.selectedIdx,
+                this.history[this.current] = {
+                    selected: this.selected,
                     isCorrect: isCorrect
                 };
 
-                if (isCorrect) {
-                    this.scoreCount++;
-                }
-
+                if (isCorrect) this.score++;
                 this.render();
             }
 
-            showFeedback(isCorrect, current) {
-                this.feedbackDisplay.style.display = 'block';
+            showFeedback(isCorrect, item) {
+                this.feedbackCard.style.display = 'block';
                 if (isCorrect) {
-                    this.feedbackDisplay.className = 'feedback-box correct';
-                    this.feedbackIcon.textContent = '✓';
-                    this.feedbackTitle.textContent = '¡Excelente! Respuesta Correcta';
-                    this.feedbackExplanation.textContent = current.explanations.right;
+                    this.feedbackCard.className = 'feedback-area correct';
+                    this.fbTitle.textContent = '✓ Respuesta Correcta';
+                    this.fbExplanation.textContent = item.explanationCorrect;
                 } else {
-                    this.feedbackDisplay.className = 'feedback-box wrong';
-                    this.feedbackIcon.textContent = '✕';
-                    this.feedbackTitle.textContent = 'Respuesta Incorrecta';
-                    this.feedbackExplanation.textContent = current.explanations.wrong;
+                    this.feedbackCard.className = 'feedback-area wrong';
+                    this.fbTitle.textContent = '✕ Respuesta Incorrecta';
+                    this.fbExplanation.textContent = item.explanationWrong;
                 }
             }
 
-            forward() {
-                if (this.index < this.bank.length - 1) {
-                    this.index++;
+            goNext() {
+                if (this.current < this.data.length - 1) {
+                    this.current++;
                     this.render();
                 } else {
-                    this.showSummary();
+                    this.finish();
                 }
             }
 
-            previous() {
-                if (this.index > 0) {
-                    this.index--;
+            goPrev() {
+                if (this.current > 0) {
+                    this.current--;
                     this.render();
                 }
             }
 
-            showSummary() {
-                this.viewQuestion.style.display = 'none';
-                this.viewSummary.style.display = 'block';
-                this.stepBadge.textContent = 'Completado';
-                this.metricScore.textContent = `${this.scoreCount}/${this.bank.length}`;
+            finish() {
+                this.screenQuestion.style.display = 'none';
+                this.screenResults.style.display = 'block';
+                this.counterEl.textContent = 'Finalizado';
+                this.totalScoreEl.textContent = `${this.score}/${this.data.length}`;
 
-                if (this.scoreCount === this.bank.length) {
-                    this.metricMsg.innerHTML = `<strong>¡Dominio Total!</strong> Has respondido correctamente todas las preguntas. Cuentas con una comprensión sólida de arquitectura hexagonal, stacks tecnológicos, monolitos y despliegue WSGI en Render.`;
-                } else if (this.scoreCount >= 2) {
-                    this.metricMsg.innerHTML = `<strong>¡Buen Desempeño!</strong> Obtuviste ${this.scoreCount} de ${this.bank.length} aciertos. Posees las bases fundamentales para el diseño y despliegue de arquitecturas web.`;
+                if (this.score === this.data.length) {
+                    this.resultsMsgEl.textContent = 'Excelente resultado. Todas las respuestas fueron correctas, demostrando un entendimiento claro de los conceptos de arquitectura y despliegue.';
+                } else if (this.score >= 2) {
+                    this.resultsMsgEl.textContent = `Buen trabajo. Obtuviste ${this.score} de ${this.data.length} respuestas correctas.`;
                 } else {
-                    this.metricMsg.innerHTML = `Obtuviste ${this.scoreCount} de ${this.bank.length}. Te recomendamos repasar los conceptos de puertos y adaptadores en la arquitectura hexagonal y la función de Gunicorn como servidor de producción.`;
+                    this.resultsMsgEl.textContent = `Obtuviste ${this.score} de ${this.data.length}. Se recomienda repasar los conceptos de arquitectura hexagonal y servidores WSGI.`;
                 }
             }
 
-            restart() {
-                this.index = 0;
-                this.selectedIdx = null;
-                this.sessionRecord = new Array(this.bank.length).fill(null);
-                this.scoreCount = 0;
-                this.viewSummary.style.display = 'none';
-                this.viewQuestion.style.display = 'block';
+            reset() {
+                this.current = 0;
+                this.selected = null;
+                this.history = new Array(this.data.length).fill(null);
+                this.score = 0;
+                this.screenResults.style.display = 'none';
+                this.screenQuestion.style.display = 'block';
                 this.render();
             }
         }
 
-        let quizController;
+        let quizApp;
         document.addEventListener('DOMContentLoaded', () => {
-            quizController = new QuizManager(quizBank);
+            quizApp = new QuizEngine(questionsList);
         });
     </script>
 
